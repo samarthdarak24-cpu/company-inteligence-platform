@@ -1,0 +1,325 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Light — warm, paper-like foundation */
+  --sp-bg: #f6f6f3;
+  --sp-bg-deep: #efeeea;
+  --sp-surface: #ffffff;
+  --sp-surface-2: #f4f4f1;
+  --sp-surface-3: #eaeae5;
+  --sp-border: #e4e3dd;
+  --sp-border-soft: #ecebe6;
+  --sp-border-strong: #d4d3cb;
+  --sp-text: #15171b;
+  --sp-text-muted: #666a72;
+  --sp-text-subtle: #8c9098;
+  --sp-accent: #2b43bf;
+  --sp-accent-hover: #22369e;
+  --sp-accent-soft: #eef0fc;
+  --sp-accent-border: #ccd3f7;
+  --sp-accent-contrast: #ffffff;
+  --sp-positive: #1d7a4c;
+  --sp-positive-soft: #e6f4eb;
+  --sp-warning: #936011;
+  --sp-warning-soft: #fcf2de;
+  --sp-danger: #a52e2e;
+  --sp-danger-soft: #fbebeb;
+
+  /* Depth — layered, low-opacity, large radius */
+  --sp-sheen: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --sp-shadow: 0 1px 2px rgba(20, 22, 28, 0.05), 0 1px 1px rgba(20, 22, 28, 0.02);
+  --sp-shadow-md: 0 1px 2px rgba(20, 22, 28, 0.05), 0 8px 20px -8px rgba(20, 22, 28, 0.14);
+  --sp-shadow-lg: 0 2px 4px rgba(20, 22, 28, 0.05), 0 28px 56px -18px rgba(18, 20, 26, 0.26);
+  --sp-grid: rgba(22, 24, 28, 0.05);
+  --sp-glow: rgba(43, 67, 191, 0.07);
+  --sp-noise-opacity: 0.025;
+}
+
+.dark {
+  --sp-bg: #0c0d10;
+  --sp-bg-deep: #090a0c;
+  --sp-surface: #141619;
+  --sp-surface-2: #1a1d21;
+  --sp-surface-3: #22262b;
+  --sp-border: #262a30;
+  --sp-border-soft: #1f2328;
+  --sp-border-strong: #343941;
+  --sp-text: #ecedef;
+  --sp-text-muted: #969ba3;
+  --sp-text-subtle: #767b84;
+  --sp-accent: #8098f2;
+  --sp-accent-hover: #97aaf6;
+  --sp-accent-soft: #171c2d;
+  --sp-accent-border: #2e3650;
+  --sp-accent-contrast: #0c0d10;
+  --sp-positive: #5ec28d;
+  --sp-positive-soft: #13251b;
+  --sp-warning: #d7a658;
+  --sp-warning-soft: #272013;
+  --sp-danger: #e08585;
+  --sp-danger-soft: #2a1919;
+
+  --sp-sheen: inset 0 1px 0 rgba(255, 255, 255, 0.045);
+  --sp-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --sp-shadow-md: 0 1px 2px rgba(0, 0, 0, 0.5), 0 10px 26px -10px rgba(0, 0, 0, 0.7);
+  --sp-shadow-lg: 0 2px 6px rgba(0, 0, 0, 0.5), 0 32px 64px -20px rgba(0, 0, 0, 0.85);
+  --sp-grid: rgba(255, 255, 255, 0.038);
+  --sp-glow: rgba(128, 152, 242, 0.08);
+  --sp-noise-opacity: 0.035;
+}
+
+@theme inline {
+  --color-bg: var(--sp-bg);
+  --color-surface: var(--sp-surface);
+  --color-surface-2: var(--sp-surface-2);
+  --color-surface-3: var(--sp-surface-3);
+  --color-line: var(--sp-border);
+  --color-line-strong: var(--sp-border-strong);
+  --color-ink: var(--sp-text);
+  --color-muted: var(--sp-text-muted);
+  --color-subtle: var(--sp-text-subtle);
+  --color-accent: var(--sp-accent);
+  --color-accent-hover: var(--sp-accent-hover);
+  --color-accent-soft: var(--sp-accent-soft);
+  --color-accent-line: var(--sp-accent-border);
+  --color-positive: var(--sp-positive);
+  --color-positive-soft: var(--sp-positive-soft);
+  --color-warning: var(--sp-warning);
+  --color-warning-soft: var(--sp-warning-soft);
+  --color-danger: var(--sp-danger);
+  --color-danger-soft: var(--sp-danger-soft);
+  --shadow-card: var(--sp-shadow);
+  --shadow-float: var(--sp-shadow-md);
+  --shadow-pop: var(--sp-shadow-lg);
+  --font-sans: var(--font-inter, "Inter"), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+}
+
+* {
+  border-color: var(--sp-border);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--sp-bg);
+  color: var(--sp-text);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv05" 1, "cv11" 1, "ss01" 1;
+  letter-spacing: -0.006em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Fine film grain keeps large flat areas from looking flat/cheap */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--sp-noise-opacity);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+}
+
+::selection {
+  background: var(--sp-accent-soft);
+  color: var(--sp-text);
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "cv05" 1;
+}
+
+.sp-display {
+  letter-spacing: -0.034em;
+  font-feature-settings: "cv05" 1, "ss01" 1, "ss03" 1;
+}
+
+.sp-focus:focus-visible,
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--sp-accent);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* ---------------------------------------------------------- surfaces */
+
+.sp-sheen {
+  box-shadow: var(--sp-sheen), var(--sp-shadow);
+}
+
+.sp-hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--sp-border-strong) 18%, var(--sp-border-strong) 82%, transparent);
+}
+
+/* Grid field with a soft radial fade — structure without noise */
+.sp-grid-bg {
+  background-image: linear-gradient(to right, var(--sp-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--sp-grid) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 35%, transparent 78%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 35%, transparent 78%);
+}
+
+.sp-dot-bg {
+  background-image: radial-gradient(var(--sp-grid) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+.sp-spotlight {
+  background: radial-gradient(ellipse 60% 48% at 50% 0%, var(--sp-glow), transparent 72%);
+}
+
+/* Card that reveals a quiet accent rail on hover */
+.sp-rail {
+  position: relative;
+}
+.sp-rail::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--sp-accent), transparent);
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+.sp-rail:hover::before {
+  opacity: 0.55;
+}
+
+.sp-scroll::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.sp-scroll::-webkit-scrollbar-thumb {
+  background: var(--sp-border-strong);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+.sp-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--sp-text-subtle);
+  background-clip: content-box;
+}
+.sp-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sp-fade-x {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+
+/* ---------------------------------------------------------- motion */
+
+@keyframes sp-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.sp-skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--sp-surface-2);
+}
+.sp-skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, var(--sp-surface-3), transparent);
+  animation: sp-shimmer 1.7s infinite;
+}
+
+@keyframes sp-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sp-fade-up {
+  animation: sp-fade-up 280ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@keyframes sp-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sp-rise {
+  animation: sp-rise 520ms cubic-bezier(0.16, 0.84, 0.44, 1) both;
+}
+
+@keyframes sp-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes sp-pulse-ring {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.6;
+  }
+  70% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.sp-pulse-ring {
+  animation: sp-pulse-ring 2.4s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+}
+
+@media print {
+  body::before {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
